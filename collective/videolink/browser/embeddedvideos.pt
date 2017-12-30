@@ -80,22 +80,9 @@
                      tal:attributes="class string:tileItem visualIEFloatFix collective-video-link-${item_type_class}">
                   
                     <a href="${item_id}#content-core" class="pat-inject"
-                       data-pat-inject="target: #video-playback::before">watch it</a>
-   
-   <a rel="prettyPhoto" class="xprettyPhoto collective-videolink" href="#"
-                       tal:attributes="href python:item_url+'/view';">
-                    </a>
+                       data-pat-inject="target: #videolink-playback">
+                        
 
-                    <h2 class="tileHeadline"
-                        metal:define-macro="listitem">
-
-                        <span rel="prettyPhoto" class="xprettyPhoto collective-videolink" href="#"
-                           class="summary url"
-                           tal:replace="item_title_or_id">
-                            Item Title
-                        </span>
-
-                    </h2>
 
                    
                     <p class="tileBody">
@@ -107,17 +94,13 @@
                     </p>
 
                     <p class="tileFooter">
-                        <a href=""
-                            rel="prettyPhoto" class="collective-videolink"
-                           tal:attributes="href python:item_url;"
-                           i18n:translate="view">
                            <img src="" width="200" tal:attributes="src item_thumb" />
                          <br />
                         View&hellip;
-                        </a>
                     </p>
 
                     <div class="visualClear"><!-- --></div>
+                        </a>
 
                 </div>
             </metal:item>

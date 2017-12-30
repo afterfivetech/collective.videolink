@@ -25,6 +25,7 @@ setup(name='collective.videolink',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'plone.patternslib',
           'requests',
           'z3c.unconfigure>=1.0.1',
           # -*- Extra requirements: -*-

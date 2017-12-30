@@ -18,6 +18,18 @@
   />
   <subscriber
      zcml:condition="installed zope.lifecycleevent"
+     for="plone.app.contenttypes.interfaces.ILink
+          zope.lifecycleevent.IObjectCreatedEvent"
+     handler="collective.videolink.utility.add_thumbnail"
+   />
+   <subscriber
+     zcml:condition="installed zope.lifecycleevent"
+     for="Products.ATContentTypes.interface.IATLink
+          zope.lifecycleevent.IObjectCreatedEvent"
+     handler="collective.videolink.utility.add_thumbnail"
+   />
+  <subscriber
+     zcml:condition="installed zope.lifecycleevent"
      for="Products.ATContentTypes.interface.IATLink
           zope.lifecycleevent.IObjectModifiedEvent"
      handler="collective.videolink.utility.add_thumbnail"
