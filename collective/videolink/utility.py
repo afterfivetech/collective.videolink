@@ -8,7 +8,6 @@ def add_thumbnail(context, event):
     @param event: Subclass of event.
     """
     if '/portal_factory/' in context.absolute_url():
-        print "oops"
         return
     annotations = IAnnotations(context)
     try:
