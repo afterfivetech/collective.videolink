@@ -25,7 +25,7 @@ setup(name='collective.videolink',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'p4a.videoembed',
+          'requests',
           'z3c.unconfigure>=1.0.1',
           # -*- Extra requirements: -*-
       ],

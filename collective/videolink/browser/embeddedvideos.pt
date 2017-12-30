@@ -8,8 +8,8 @@
 
 <body>
 
-    <div metal:fill-slot="main">
-    <metal:main-macro define-macro="main"
+    <div metal:fill-slot="content-core">
+    <metal:main-macro define-macro="content-core"
                       tal:define="normalizeString nocall:context/@@plone/normalizeString;
                                   kssClassesView context/@@kss_field_decorator_view;
                                   getKssClasses nocall:kssClassesView/getKssClassesInlineEditable;
@@ -53,12 +53,11 @@
         <tal:listing condition="folderContents">
 
             <tal:block tal:repeat="item folderContents">
-                <div class="tileItem visualIEFloatFix" 
-                    tal:condition="python: item_type == 'Link'"
-                     tal:define="item_url item/getRemoteUrl;
+                               
+                <metal:item tal:define="item_url item/getRemoteUrl;
                                        item_id item/getId|item/id;
                                        item_title_or_id item/pretty_title_or_id;
-                                       item_thumb item/thumbnail |string:no location;
+                                       item_thumb python:view.thumbnail(item);
                                        item_description item/Description;
                                        item_type item/portal_type;
                                        item_type_title item/Type;
@@ -71,9 +70,14 @@
                                        item_start item/start/ISO|item/StartDate|nothing;
                                        item_end item/end/ISO|item/EndDate|nothing;
                                        item_object item/getObject;
-                                   "
+                                   ">
+                    
+                 <strong>-- ${item_thumb}</strong> 
+                <div class="tileItem visualIEFloatFix" 
+                    tal:condition="python: item_type == 'Link'"
+                     
                      tal:attributes="class string:tileItem visualIEFloatFix collective-video-link-${item_type_class}">
-
+                  
                     <a rel="prettyPhoto" class="xprettyPhoto collective-videolink" href="#"
                        tal:attributes="href python:item_url+'/view';">
                     </a>
@@ -112,6 +116,7 @@
                     <div class="visualClear"><!-- --></div>
 
                 </div>
+            </metal:item>
             </tal:block>
 
             <!-- Navigation -->

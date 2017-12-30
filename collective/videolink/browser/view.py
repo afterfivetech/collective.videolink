@@ -1,11 +1,8 @@
-from p4a.videoembed.interfaces import IVideoMetadataRetriever
-from p4a.videoembed.interfaces import IEmbedCodeConverterRegistry
-import urllib2
+import requests
 from collective.videolink.utility import add_thumbnail
 from Acquisition import aq_inner
-
+from zope.annotation.interfaces import IAnnotations
 from Products.Five.browser import BrowserView
-from zope.component import getUtility
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 try:
@@ -23,15 +20,11 @@ class VideoLink(BrowserView):
         If not, just fall back to default view
     """
 
-    index = ViewPageTemplateFile("embed.pt")
+    index = ViewPageTemplateFile("embeddedvideo.pt")
 
     def __init__(self, context, request):
         BrowserView.__init__(self, context, request)
-        self.metadata_retriever = getUtility(IVideoMetadataRetriever)
-        self.embedcode_converter = getUtility(IEmbedCodeConverterRegistry)
-
-    def metadata(self):
-        return self.metadata_retriever.get_metadata(self.context.getRemoteUrl())
+        
 
 
     # FIXME add annotation so that it doesn't go there everytime
@@ -39,7 +32,16 @@ class VideoLink(BrowserView):
         return add_thumbnail(self.context,'non event')
 
     def embedcode(self):
-        return self.embedcode_converter.get_code(self.context.getRemoteUrl(), 400)
+        try:
+            # is archetypes
+            remote_url = self.context.getRemoteUrl()
+        except AttributeError:
+            # is dexterity
+            remote_url = self.context.remoteUrl
+        query = "https://noembed.com/embed?url={}".format(remote_url)
+        response = requests.get(query)
+        embed_json = response.json()
+        return embed_json['html']
 
 #    @property
     def _view(self):
@@ -56,3 +58,19 @@ class VideoLink(BrowserView):
 
     def __call__(self, *args, **kwargs):
         return self._view()
+
+class VideoLinkList(BrowserView):
+    """ Default view for list of video links, checks if the link has a video
+    """
+    def __init__(self, context, request):
+        BrowserView.__init__(self, context, request)
+        
+    def thumbnail(self,item_brain):
+        item = item_brain.getObject()
+        annotations = IAnnotations(item)
+        try:
+            data = annotations['collective.videolink.data']
+        except KeyError:
+            data = annotations['collective.videolink.data'] = {}
+        if 'thumbnail' in data:
+            return data['thumbnail']

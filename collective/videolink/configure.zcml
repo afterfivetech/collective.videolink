@@ -4,14 +4,18 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="collective.videolink">
 
-  <include package="p4a.videoembed" />
   <include package=".browser" />
   <include file="profiles.zcml" />
   <include file="upgrades.zcml" />
-  <include package=".videoembedproviders" />
 
   
 
+  <subscriber
+     zcml:condition="installed zope.lifecycleevent"
+     for="plone.app.contenttypes.interfaces.ILink
+          zope.lifecycleevent.IObjectModifiedEvent"
+     handler="collective.videolink.utility.add_thumbnail"
+  />
   <subscriber
      zcml:condition="installed zope.lifecycleevent"
      for="Products.ATContentTypes.interface.IATLink
