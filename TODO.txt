@@ -1,7 +1,7 @@
 link as video view
 -------------------------------
-- [.] - make this work with the most important video sources (youtube, viddler, vimeo)
-- [.] - get the thumbnail easily
+- [x] - make this work with the most important video sources (youtube, vimeo)
+- [x] - get the thumbnail easily
 - [x] - extend the link type to support a thumbnail index
 
 Thumbnail summary view on collections
@@ -11,11 +11,17 @@ Thumbnail summary view on collections
 
 Other
 ------------
-- [ ] - support videolink list (@@embeddedvideos) on new Collection types
+- [x] - support videolink list (@@embeddedvideos) on new Collection types
 - [x] - port to Plone 4
+- [x] - port to Plone 5
 - [/] - add oembed support for Plone 4 (since it works with Python 2.6+)
         decided to use oohembed.com instead
 - [x] - register getLocation index/metadata in catalog
+
+figure out how to deal with local video
+---------------------------------------
+- [ ] - support local video formats (mp4, webm)
+- [ ] - figure out how best to do thumbnailing
 
 FLV and SWF support
 ---------------------
