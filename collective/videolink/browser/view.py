@@ -64,13 +64,10 @@ class VideoLinkList(BrowserView):
     """
     def __init__(self, context, request):
         BrowserView.__init__(self, context, request)
-        
+       
     def thumbnail(self,item_brain):
         item = item_brain.getObject()
         annotations = IAnnotations(item)
-        try:
-            data = annotations['collective.videolink.data']
-        except KeyError:
-            data = annotations['collective.videolink.data'] = {}
+        data = annotations.get('collective.videolink.data',{})
         if 'thumbnail' in data:
             return data['thumbnail']

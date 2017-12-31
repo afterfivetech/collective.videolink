@@ -76,7 +76,7 @@
                     
 
                 <div class="tileItem visualIEFloatFix" 
-                    tal:condition="python: item_type == 'Link'"
+                    tal:condition="python: item_type == 'Link' and item_thumb"
                      
                      tal:attributes="class string:tileItem visualIEFloatFix collective-video-link-${item_type_class}">
                   

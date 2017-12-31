@@ -65,6 +65,10 @@ def mark_video_link(context):
                      IVideoLinkThumb,
                      IVideoLinkOembedable
                      )
+    context.portal_catalog.reindexObject(self.context, 
+                                         idxs=['object_provides'], 
+                                         update_metadata=1
+                                         )
     return context
     
 def old_hashed_url(context):
@@ -81,6 +85,11 @@ def remove_thumbnail(context):
 def unmark_video_link(context):
     noLongerProvides(context, IVideoLinkThumb)
     noLongerProvides(context, IVideoLinkOembedable)
+    # idea borrowed from https://gist.github.com/jensens/3518210#file-action-py-L17-L19
+    context.portal_catalog.reindexObject(context, 
+                                         idxs=['object_provides'], 
+                                         update_metadata=1
+                                         )
     return context
 
 def update_thumbnail(context):
