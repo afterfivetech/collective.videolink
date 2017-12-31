@@ -41,7 +41,7 @@
             <div metal:define-slot="inside" tal:replace="structure text">The body</div>
         </div>
 
-        <div id="videolink-playback"></div>
+        <div id="videolink-playback">--</div>
         <metal:listingmacro define-macro="listing">
         <tal:foldercontents define="contentFilter contentFilter|request/contentFilter|nothing;
                             limit_display limit_display|request/limit_display|nothing;
@@ -55,7 +55,7 @@
 
             <tal:block tal:repeat="item folderContents">
                                
-                <metal:item tal:define="item_url item/getRemoteUrl;
+                <metal:item tal:define="item_link_url item/getRemoteUrl;
                                        item_id item/getId|item/id;
                                        item_title_or_id item/pretty_title_or_id;
                                        item_thumb python:view.thumbnail(item);
@@ -71,6 +71,7 @@
                                        item_start item/start/ISO|item/StartDate|nothing;
                                        item_end item/end/ISO|item/EndDate|nothing;
                                        item_object item/getObject;
+                                       item_url item_object/absolute_url;
                                    ">
                     
 
@@ -79,8 +80,8 @@
                      
                      tal:attributes="class string:tileItem visualIEFloatFix collective-video-link-${item_type_class}">
                   
-                    <a href="${item_id}#content-core" class="pat-inject"
-                       data-pat-inject="target: #videolink-playback">
+                    <a href="${item_url}#content-core" class="pat-inject"
+                       data-pat-inject="target:#videolink-playback">
                         
 
 

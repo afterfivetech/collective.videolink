@@ -2,16 +2,16 @@ Introduction
 ============
 
 This package adds a new view to Plone's Link content type. If the remote url of
-the link is a video supported by p4a.videoembed it will embed video.
-
-For more information read the wiki at: https://bitbucket.org/alteroo/collective.videolink/wiki
+the link is an oembedable video collective.videolink will
+override the default `link_redirect_view` browserview to show
+the embedded video.
 
 .. contents::
 
 
 Credits
 ======================================
-The code is a fork of another project
+The code was originally forked from another project
 nmd.ploneaslinkvideoembed
 
 .. _plonelinkasvideoembed:  http://plone.org/products/nmd.plonelinkasvideoembed
@@ -21,7 +21,16 @@ Dependencies
 ============
 
 * Plone
-* p4a.videoembed
+* requests
+* 
+
+Plone 4 compatibility
+==========================
+Use collective.videolink 3.0a5
+
+Plone 5 compatibility
+=======================
+Use collective.videolink >5.0
 
 Why this package ?
 ==================
