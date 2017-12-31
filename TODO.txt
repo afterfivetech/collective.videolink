@@ -9,6 +9,13 @@ Thumbnail summary view on collections
 - [x] - create a thumbnail summary view for Collections(Topics)
 - [x] - register the new view (@@embeddedvideos) using generic setup and upgrade step
 
+Add new marker interface
+---------------------------
+- [x] - create a marker interface "IVideoLinkOembedable"
+- [x] - update configure.zcml so behaviour of 'link_redirect_view' browser view is overriden 
+        based on presence of "videolink.oembedable"
+- [x] - use the add_thumbnail handler (possibly rename it) to attach the new marker interface to links 
+        that are "oembedable" without error
 Other
 ------------
 - [x] - support videolink list (@@embeddedvideos) on new Collection types

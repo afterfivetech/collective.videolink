@@ -3,15 +3,8 @@
     xmlns:browser="http://namespaces.zope.org/browser">
 
   <browser:page
-      name="embeddedvideo"
-      for="Products.ATContentTypes.interface.IATLink"
-      class=".view.VideoLink"
-      permission="zope2.View"
-      />
-      
-  <browser:page
-      name="embeddedvideo"
-      for="plone.app.contenttypes.interfaces.ILink"
+      name="link_redirect_view"
+      for="collective.videolink.interfaces.IVideoLinkOembedable"
       class=".view.VideoLink"
       permission="zope2.View"
       />

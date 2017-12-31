@@ -1,4 +1,7 @@
 from zope.annotation.interfaces import IAnnotations
+from zope.interface.declarations import alsoProvides
+from zope.interface.declarations import providedBy
+from collective.videolink.interfaces import IVideoLinkThumb, IVideoLinkOembedable
 import requests
 
 def add_thumbnail(context, event):
@@ -14,8 +17,9 @@ def add_thumbnail(context, event):
         data = annotations['collective.videolink.data']
     except KeyError:
         data = annotations['collective.videolink.data'] = {}
-    if data.has_key('thumbnail'):
-         return data['thumbnail']
+    if 'thumbnail' in data:
+        if IVideoLinkThumb in providedBy(context):
+            return data['thumbnail']
 
     try:
         remote_url = context.getRemoteUrl()
@@ -26,5 +30,7 @@ def add_thumbnail(context, event):
     query = "https://noembed.com/embed?url={}".format(remote_url)
     response = requests.get(query)
     embed_json = response.json()
-    annotations['collective.videolink.data']['thumbnail'] = thumbnail_url = embed_json['thumbnail_url']
-    return thumbnail_url
+    if 'error' not in embed_json:
+        annotations['collective.videolink.data']['thumbnail'] = thumbnail_url = embed_json['thumbnail_url']
+        alsoProvides(context, IVideoLinkThumb, IVideoLinkOembedable)
+        return thumbnail_url
