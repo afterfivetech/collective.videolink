@@ -3,3 +3,4 @@ Paste*
 *.pyc
 *egg-info
 dist
+venv/
