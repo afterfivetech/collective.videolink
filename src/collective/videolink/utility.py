@@ -6,7 +6,6 @@ from zope.interface.declarations import providedBy
 from collective.videolink.interfaces import IVideoLinkThumb, IVideoLinkOembedable
 import requests
 
-
 def add_thumbnail(context, event):
     """
     annotates the current context with a thumbnail based on its remote_url

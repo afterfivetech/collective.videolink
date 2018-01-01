@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '3.0a5'
+version = '5.0a1'
 
 setup(name='collective.videolink',
       version=version,
@@ -17,9 +17,10 @@ setup(name='collective.videolink',
       keywords='',
       author='David Bain',
       author_email='david.bain@alteroo.com',
-      url='http://bitbucket.org/alteroo/collective.videolink',
+      url='http://github.com/collective/collective.videolink',
       license='GPL',
-      packages=find_packages(exclude=['ez_setup']),
+      packages=find_packages('src'),
+      package_dir={'': 'src'},
       namespace_packages=['collective'],
       include_package_data=True,
       zip_safe=False,
@@ -30,6 +31,18 @@ setup(name='collective.videolink',
           'z3c.unconfigure>=1.0.1',
           # -*- Extra requirements: -*-
       ],
+        extras_require={
+        'test': [
+            'lxml',
+            'mock',
+            'plone.app.robotframework',
+            'plone.app.testing [robot]',
+            'plone.browserlayer',
+            'plone.testing',
+            'robotsuite',
+            'zope.component',
+        ],
+    },
       entry_points="""
       # -*- Entry points: -*-
       [z3c.autoinclude.plugin]

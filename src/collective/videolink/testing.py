@@ -1,25 +1,38 @@
-import sys
-import unittest
+# -*- coding: utf-8 -*-
+from plone.app.robotframework.testing import AUTOLOGIN_LIBRARY_FIXTURE
+from plone.app.testing import FunctionalTesting
+from plone.app.testing import IntegrationTesting
+from plone.app.testing import PLONE_FIXTURE
+from plone.app.testing import PloneSandboxLayer
+from plone.testing import z2
 
-from zope.testing import doctestunit
-from zope.component import testing
-import zope.interface
-import zope.component
-from Testing import ZopeTestCase as ztc
-from Acquisition import aq_base
-
-from Products.Five import zcml
-from Products.Five import BrowserView
-from Products.Five import fiveconfigure
-from Products.PloneTestCase import PloneTestCase as ptc
-from Products.PloneTestCase.layer import PloneSite
-from zope.app.testing import ztapi
-
-
-ptc.setupPloneSite(products=['collective.videolink'])
 
 import collective.videolink
-from collective.videolink.browser.link import VideoLink
+
+class Fixture(PloneSandboxLayer):
+
+    defaultBases = (PLONE_FIXTURE,)
+
+    def setUpZope(self, app, configurationContext):
+        import collective.videolink
+        self.loadZCML(package=collective.videolink)
+
+    def setUpPloneSite(self, portal):
+        self.applyProfile(portal, 'collective.videolink:default')
+
+FIXTURE = Fixture()
+
+INTEGRATION_TESTING = IntegrationTesting(
+    bases=(FIXTURE,), name='collective.videolink:Integration')
+
+FUNCTIONAL_TESTING = FunctionalTesting(
+    bases=(FIXTURE,), name='collective.videolink:Functional')
+
+ROBOT_TESTING = FunctionalTesting(
+    bases=(FIXTURE, AUTOLOGIN_LIBRARY_FIXTURE, z2.ZSERVER_FIXTURE),
+    name='collective.videolink:Robot',
+)
+
 
 class TestCase(ptc.PloneTestCase):
     class layer(PloneSite):

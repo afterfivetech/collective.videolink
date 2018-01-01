@@ -43,3 +43,19 @@ FLV and SWF support
 - [z] - provide a simple utility for registering an FLV player
 - [z] - embed swf files
 - [z] - smarter embedding of swf files (currently truncates them to 400 px)
+
+Test adding links
+--------------------
+- [ ] - adding oembedable links
+- [ ] - adding links that don't support oembed
+- [ ] - updating an oembedable link to a non-oembed link
+- [ ] - updating a non-oembed link to an oembed link
+- [ ] - updating an oembed link to a different oembed link
+
+Test list views
+------------------
+- [ ] - list view on a folder
+- [ ] - list view on a collections
+- [ ] - list view with only oembed links
+- [ ] - list view with a mixture of non-oembed links
+- [ ] - list view only non-oembed links
