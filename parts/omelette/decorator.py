@@ -1,1 +1,0 @@
-/home/ubuntu/workspace/buildout-cache/eggs/decorator-4.1.2-py2.7.egg/decorator.py
