@@ -2,9 +2,10 @@ from zope.annotation.interfaces import IAnnotations
 from zope.interface.declarations import alsoProvides
 from zope.interface.declarations import noLongerProvides
 import hashlib
+import re
 from plone import api
 from zope.interface.declarations import providedBy
-from collective.videolink.interfaces import IVideoLinkThumb, IVideoLinkOembedable
+from collective.videolink.interfaces import IVideoLinkGoogleDrive, IVideoLinkThumb, IVideoLinkOembedable
 import requests
     
 def add_thumbnail(context, event):
@@ -29,7 +30,6 @@ def add_thumbnail(context, event):
         remove_thumbnail(
               unmark_video_link(context)
               )
-        
         return context
 
 def hashed_url_changed(context):
@@ -55,14 +55,41 @@ def get_remote_url(context):
     except AttributeError:
         remote_url = context.remoteUrl
     return remote_url
+
+def extract_gdrive_id(context):
+    """
+     if url is of form similar to 
+     https://drive.google.com/file/d/1Xr-UHkW5dTSl-c66kVler6MAobvBSBtU/view
+     extract the id 1Xr-UHkW5dTSl-c66kVler6MAobvBSBtU
+    """
+    remote_url = get_remote_url(context)
+    p = re.compile('https://drive.google.com/file/d/([\w-]{30,})/view')
+    return ''.join(p.findall(remote_url))
+
+def get_gdrive_thumb(context):
+    gdrive_id = extract_gdrive_id(context)
+    if gdrive_id:
+        return "https://drive.google.com/thumbnail?authuser=0&sz=w320&id={}".format(gdrive_id)
+    return None
     
 def get_thumbnail(context):
     """ given a context, use noembed.com to retrieve 
         a thumbnail
     """
+    gdrive_thumb = get_gdrive_thumb(context)
+    if gdrive_thumb: 
+        return gdrive_thumb
     output = get_json(context)
     return output.get('thumbnail_url',None)
     
+def mark_video_as_google_drive_link(context):
+    """
+    Mark a link as a google drive resource
+    """    
+    alsoProvides(context,
+                     IVideoLinkGoogleDrive
+                     )
+                     
 def mark_video_link(context):
     """
     Mark a link as an oembedable resource
@@ -73,7 +100,7 @@ def mark_video_link(context):
                      IVideoLinkThumb,
                      IVideoLinkOembedable
                      )
-    reindex(context)
+    #reindex(context)
     return context
     
 def old_hashed_url(context):
@@ -107,7 +134,8 @@ def remove_thumbnail(context):
 def unmark_video_link(context):
     noLongerProvides(context, IVideoLinkThumb)
     noLongerProvides(context, IVideoLinkOembedable)
-    reindex(context)
+    noLongerProvides(context, IVideoLinkGoogleDrive)
+    #reindex(context)
     return context
 
 def update_thumbnail(context):
