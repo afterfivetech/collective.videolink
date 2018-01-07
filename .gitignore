@@ -5,3 +5,4 @@ Paste*
 dist
 venv/
 bin/
+parts/

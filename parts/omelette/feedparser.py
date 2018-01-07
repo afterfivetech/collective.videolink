@@ -1,1 +1,0 @@
-/home/ubuntu/workspace/buildout-cache/eggs/feedparser-5.2.1-py2.7.egg/feedparser.py

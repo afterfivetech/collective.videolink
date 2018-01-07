@@ -1,1 +1,0 @@
-/home/ubuntu/workspace/buildout-cache/eggs/six-1.10.0-py2.7.egg/six.py
