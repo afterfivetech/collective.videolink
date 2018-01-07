@@ -36,5 +36,6 @@ Why this package ?
 ==================
 
 I needed a way to display video links in a thumbnail gallery style view
-This provides a simple view for collections of video links. Currently thumbnails from Vimeo are 
-the only ones supported (more to come).
+This provides a simple view for collections of video links. 
+This is know to work with videos from youtube and vimeo. It also works with
+soundcloud and other oembedable links.

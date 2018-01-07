@@ -28,8 +28,8 @@ class VideoLink(BrowserView):
 
 
     # FIXME add annotation so that it doesn't go there everytime
-    def thumbnail(self):
-        return add_thumbnail(self.context,'non event')
+#    def thumbnail(self):
+#        return add_thumbnail(self.context,'non event')
 
     def embedcode(self):
         try:
@@ -38,12 +38,26 @@ class VideoLink(BrowserView):
         except AttributeError:
             # is dexterity
             remote_url = self.context.remoteUrl
+        gdrive_embed = self.is_google_drive(remote_url)
+        if gdrive_embed:
+            return gdrive_embed
         query = "https://noembed.com/embed?url={}".format(remote_url)
         response = requests.get(query)
         embed_json = response.json()
         return embed_json['html']
 
 #    @property
+    def is_google_drive(self,remote_url):
+        if remote_url.startswith('https://drive.google.com'):
+            if remote_url.endswith('/view'):
+                return """<iframe src="{}" 
+                            allowfullscreen="true" 
+                            webkitallowfullscreen="true" 
+                            mozallowfullscreen="true">
+                </iframe>""".format(
+                              remote_url.replace('/view','/preview')) 
+        return None
+        
     def _view(self):
         context_here = aq_inner(self.context)
         traverse_view =  context_here.restrictedTraverse

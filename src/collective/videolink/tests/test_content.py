@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
-from collective.videolink.interfaces import IVideoLinkThumb, IVideoLinkOembedable
-from plone.app.contenttypes.interfaces import ILink
-from collective.videolink.testing import COLLECTIVE_VIDEOLINK_INTEGRATION_TESTING
-from plone import api
-from plone.dexterity.interfaces import IDexterityFTI
-from zope.component import createObject
-from zope.component import queryUtility
-
 import unittest
 
+from plone import api
+from plone.app.contenttypes.interfaces import ILink
+from plone.dexterity.interfaces import IDexterityFTI
+from zope.component import queryUtility
+
+from collective.videolink.interfaces import IVideoLinkThumb, IVideoLinkOembedable
+from collective.videolink.testing import COLLECTIVE_VIDEOLINK_INTEGRATION_TESTING
 
 class ContentTypeTestCase(unittest.TestCase):
 
@@ -37,10 +36,18 @@ class ContentTypeTestCase(unittest.TestCase):
                 remoteUrl='https://www.plone.com'
                 )
 
-    def test_adding(self):
+    def test_fti(self):
+        fti = queryUtility(IDexterityFTI, name='Folder')
+        self.assertIsNotNone(fti)
+
+    def test_is_selectable_as_folder_default_view(self):
+        self.portal.setDefaultPage('f1')
+        self.assertEqual(self.portal.default_page, 'f1')
+
+    def test_adding_l1(self):
         self.assertTrue(ILink.providedBy(self.l1))
     
-    def test_adding(self):
+    def test_adding_l2(self):
         self.assertTrue(ILink.providedBy(self.l2))
     
     def test_has_videolinkthumb_interface(self):
@@ -55,10 +62,23 @@ class ContentTypeTestCase(unittest.TestCase):
     def test_does_not_have_videolinkoembedable_interface(self):
         self.assertFalse(IVideoLinkOembedable.providedBy(self.l2))
     
-    def test_fti(self):
-        fti = queryUtility(IDexterityFTI, name='Folder')
-        self.assertIsNotNone(fti)
+    def test_nolonger_has_thumbnail_after_adding_non_oembed_url(self):
+        """ remove oembed thumb after changing remoteurl to a
+            non-oembedable url
+        """
+        # XXX Fix me
+        self.l1.remoteUrl = "http://plone.com"
+        self.l1.reindexObject()
+        self.l1.reindexObject(idxs=['modified'])
+        self.assertFalse(IVideoLinkThumb.providedBy(self.l1))
 
-    def test_is_selectable_as_folder_default_view(self):
-        self.portal.setDefaultPage('f1')
-        self.assertEqual(self.portal.default_page, 'f1')
+    def test_now_has_oembed_after_adding_oembed_url(self):
+        """ add oembed content after changing remoteurl to
+            an oembedable url
+        """
+        self.l2.remoteUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        self.l2.title = "Rick Rolled"
+        self.l2.reindexObject()
+        self.l2.reindexObject(idxs=['modified'])
+        #import pdb;pdb.set_trace()
+        self.assertTrue(IVideoLinkOembedable.providedBy(self.l2))
