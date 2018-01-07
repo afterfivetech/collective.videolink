@@ -43,11 +43,6 @@ FLV and SWF support
 
 Test adding links
 --------------------
-Links are dynamically switch between oembedable and not oembedable.
-We need to test this feature. We can easily test for this by checking
-for the presence or absence of a marker interface.
-* we'll need an integration test for the dynamic marker interface 
-(see: https://docs.plone.org/external/plone.app.dexterity/docs/behaviors/testing-behaviors.html#a-note-about-marker-interfaces)
 - [x] - adding oembedable links
 - [x] - adding links that don't support oembed
 - [ ] - updating an oembedable link to a non-oembed link
@@ -56,9 +51,6 @@ for the presence or absence of a marker interface.
 
 Test list views
 ------------------
-The list views are applied to folders and collections
-These are to be enabled manually as needed. It is important
-that we can test this functionality
 - [ ] - test enabling the list view
 - [ ] - list view on a folder
 - [ ] - list view on a collections
@@ -68,18 +60,10 @@ that we can test this functionality
 
 Switch to using dynamic behaviours
 ------------------------------------
-Marker interfaces are harder to test
-But there is good documentation on testing behaviours
-(see: https://docs.plone.org/external/plone.app.dexterity/docs/behaviors/testing-behaviors.html)
-we can tie the marker interface approach to "trigger" behaviors on only instances
-of a content type that we want.
+- [ ] - persist thumbnails using leadimage behaviour
+- [ ] - update tests to test against behaviours
 
 Styling
 -------------
-We'll want to add custom styles and layouts to our views.
-While injecting is happening it will good to show some kind of 
-state change (a loading animation or change of colour etc..).
-Also, we need to decide what kind of layout to use. 
-I'll use this layout http://thedailyreel.com/world-news-today/
 - [ ] - add custom css for layout
 - [ ] - add custom css for loading state (inject)
