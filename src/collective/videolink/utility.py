@@ -69,7 +69,7 @@ def extract_gdrive_id(context):
 def get_gdrive_thumb(context):
     gdrive_id = extract_gdrive_id(context)
     if gdrive_id:
-        return "https://drive.google.com/thumbnail?authuser=0&sz=w320&id={}".format(gdrive_id)
+        return "https://drive.google.com/thumbnail?sz=w320&id={}".format(gdrive_id)
     return None
     
 def get_thumbnail(context):
@@ -85,10 +85,11 @@ def get_thumbnail(context):
 def mark_video_as_google_drive_link(context):
     """
     Mark a link as a google drive resource
-    """    
-    alsoProvides(context,
+    """
+    alsoProvides(mark_video_link(context),
                      IVideoLinkGoogleDrive
                      )
+    return context 
                      
 def mark_video_link(context):
     """
