@@ -63,7 +63,7 @@ Changelog
 1.0a2
 ---------------
 
-* added youtube support (retrieves metadata via a primitive oembed query - relies on json format) [pigeonflight]
+5.0a3 (2018-03-14)
 
 1.0a1
 ---------------

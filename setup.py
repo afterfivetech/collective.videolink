@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '5.0a2'
+version = '5.0a3'
 
 setup(name='collective.videolink',
       version=version,
