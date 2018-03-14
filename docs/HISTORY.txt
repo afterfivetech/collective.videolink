@@ -1,6 +1,10 @@
 Changelog
 =========
 
+5.0a4
+---------
+* version bump [pigeonflight]
+
 5.0a2
 ---------
 * updated changelog and readme
