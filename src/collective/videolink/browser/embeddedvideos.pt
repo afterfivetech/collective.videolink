@@ -83,7 +83,7 @@
                         
 
 
-                   
+                    <h3 tal:content="item_title_or_id"></h3>                   
                     <p class="tileBody">
                         <span tal:omit-tag="" tal:condition="not:item_description">
                         </span>

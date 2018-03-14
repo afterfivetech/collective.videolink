@@ -32,6 +32,9 @@ Plone 5 compatibility
 =======================
 Use collective.videolink >5.0
 
+Version 5 has support for video from Vimeo and Youtube and experimental support for public video links from Google Drive.
+
+
 Why this package ?
 ==================
 

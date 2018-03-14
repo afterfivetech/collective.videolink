@@ -85,10 +85,11 @@ def get_thumbnail(context):
 def mark_video_as_google_drive_link(context):
     """
     Mark a link as a google drive resource
-    """    
-    alsoProvides(context,
+    """
+    alsoProvides(mark_video_link(context),
                      IVideoLinkGoogleDrive
                      )
+    return context 
                      
 def mark_video_link(context):
     """
