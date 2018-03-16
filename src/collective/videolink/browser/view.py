@@ -1,5 +1,5 @@
 import requests
-from collective.videolink.utility import add_thumbnail
+from collective.videolink.utility import add_thumbnail, clean_embed_html, unshorten_url
 from Acquisition import aq_inner
 from zope.annotation.interfaces import IAnnotations
 from Products.Five.browser import BrowserView
@@ -39,12 +39,13 @@ class VideoLink(BrowserView):
             # is dexterity
             remote_url = self.context.remoteUrl
         gdrive_embed = self.is_google_drive(remote_url)
+        remote_url = unshorten_url(remote_url)
         if gdrive_embed:
             return gdrive_embed
         query = "https://noembed.com/embed?url={}".format(remote_url)
         response = requests.get(query)
         embed_json = response.json()
-        return embed_json['html']
+        return clean_embed_html(embed_json)
 
 #    @property
     def is_google_drive(self,remote_url):

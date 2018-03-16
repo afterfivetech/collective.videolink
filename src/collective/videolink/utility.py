@@ -3,11 +3,13 @@ from zope.interface.declarations import alsoProvides
 from zope.interface.declarations import noLongerProvides
 import hashlib
 import re
+import requests
 from plone import api
 from zope.interface.declarations import providedBy
 from collective.videolink.interfaces import IVideoLinkGoogleDrive, IVideoLinkThumb, IVideoLinkOembedable
 import requests
     
+SHORT_URLS = ['https://flic.kr/','https://goo.gl/']
 def add_thumbnail(context, event):
     """
     annotates the current context with a thumbnail based on its remote_url
@@ -54,8 +56,24 @@ def get_remote_url(context):
         remote_url = context.getRemoteUrl()
     except AttributeError:
         remote_url = context.remoteUrl
+    return unshorten_url(remote_url)
+
+def unshorten_url(remote_url):
+    """ check if this is a short url and 
+        unshorten if so """
+    if any(
+           short_url_prefix in remote_url 
+              for short_url_prefix in SHORT_URLS
+            ):
+                r = requests.get(remote_url)
+                # extract real url from short url
+                return r.url
     return remote_url
 
+def clean_embed_html(embed_json):
+    if embed_json['provider_url'] == 'https://www.flickr.com/':
+        return embed_json['html'].replace('n03','N03')
+    return embed_json['html']    
 def extract_gdrive_id(context):
     """
      if url is of form similar to 
