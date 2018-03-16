@@ -76,7 +76,7 @@ Changelog
 1.0a1
 ---------------
 
-* added viddler support (retrieve metadata via a primitive oembed query - relies on json format) [pigeonflight]
+5.0a5 (2018-03-16)
 
 1.0a
 ------------------
