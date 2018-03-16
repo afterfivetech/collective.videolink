@@ -1,8 +1,8 @@
 Changelog
 =========
 
-5.0a5
-----------------
+5.0a5 (unreleased)
+-------------------
 
 * now "unshortens" urls from goo.gl and flickr [pigeonflight]
 * supports embedding flickr albums [pigeonflight]
