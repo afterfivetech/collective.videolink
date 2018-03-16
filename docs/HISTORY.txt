@@ -3,19 +3,23 @@ Changelog
 
 5.0a5
 ----------------
+
 * now "unshortens" urls from goo.gl and flickr [pigeonflight]
 * supports embedding flickr albums [pigeonflight]
 
 5.0a4
 ----------------
+
 * version bump [pigeonflight]
 
 5.0a2
 ---------
+
 * updated changelog and readme
 
 5.0a1
 ---------
+
 * added soundcloud and experimental google drive video support [pigeonflight]
 * now works with Plone 5 [pigeonflight]
 * further customisations to the embeddedvideo listings view and individual view [pigeonflight]
@@ -26,6 +30,7 @@ Changelog
 
 3.0a4
 ---------
+
 * replaced collective.colorbox with collective.prettyphoto [pigeonflight]
 * do not purge viewmethods [cleder]
 * use metal:content-core fill-slot="content-core" to simplify pagetemplate [cleder]
@@ -34,6 +39,7 @@ Changelog
 
 3.0a
 ----------
+
 * collective.colorbox with collective.prettyphoto
 * this version requires Plone 4 as it uses the json module which ships with Python 2.6 [pigeonflight]
 * now properly supports blip.tv and youtube videos [pigeonflight]
@@ -68,15 +74,6 @@ Changelog
 
 * now relies on oohembed for videos that are not from vimeo,youtube or viddler [pigeonflight]
 * thumbnails will be forced to 200px width in the @@embeddedvideos collection view [pigeonflight]
-
-1.0a2
----------------
-
-
-1.0a1
----------------
-
-5.0a5 (2018-03-16)
 
 1.0a
 ------------------
