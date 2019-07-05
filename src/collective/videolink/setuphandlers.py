@@ -175,7 +175,7 @@ def import_various(context):
         return
     logger = context.getLogger('collective.videolink')
     site = context.getSite()
-    add_catalog_indexes(site, logger)
+    # add_catalog_indexes(site, logger)
 
 ##code-section FOOT
 ##/code-section FOOT
