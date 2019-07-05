@@ -20,9 +20,9 @@ def add_thumbnail(context, event):
     @param event: Subclass of event.
     """
     if '/portal_factory/' in context.absolute_url():
-        return None
+        return context
     if old_hashed_url(context) and not hashed_url_changed(context):
-        return None
+        return context
     unmark_video_link(context)
     _thumbnail = get_thumbnail(context)    
     if _thumbnail:
@@ -32,7 +32,7 @@ def add_thumbnail(context, event):
         remove_thumbnail(
               unmark_video_link(context)
               )
-        return None
+        return context
 
 def hashed_url_changed(context):
     candidate_hashed_remote_url = hashlib.md5(
