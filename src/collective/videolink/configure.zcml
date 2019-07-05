@@ -34,5 +34,5 @@
           zope.lifecycleevent.IObjectModifiedEvent"
      handler="collective.videolink.utility.add_thumbnail"
   />
-   <adapter name="thumbnail" factory=".indexers.videolink_thumbnail" />
+   <!-- <adapter name="thumbnail" factory=".indexers.videolink_thumbnail" /> -->
 </configure>
