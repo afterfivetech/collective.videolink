@@ -45,7 +45,7 @@ def get_json(context):
     """Get the embed_json for a given context"""
     remote_url = get_remote_url(context)
     query = "https://noembed.com/embed?url={}".format(remote_url)
-    response = requests.get(query)
+    response = requests.get(query, verify=False)
     return response.json()
 
 def get_remote_url(context):
